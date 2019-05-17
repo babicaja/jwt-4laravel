@@ -33,5 +33,5 @@
         "JWT4L\\Providers\\JWTServiceProvider"
       ]
     }
-  },
+  }
 }
