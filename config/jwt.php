@@ -5,8 +5,8 @@ return [
     'expires' => env('JWT_EXP', 15), // minutes
     'secret' => env('JWT_KEY', 'secret'),
     'checks' => [
-        \App\Services\JWT\Checks\Structure::class,
-        \App\Services\JWT\Checks\Signature::class,
-        \App\Services\JWT\Checks\Expired::class
+       \JWT4L\Checks\Structure::class,
+       \JWT4L\Checks\Signature::class,
+       \JWT4L\Checks\Expired::class
     ]
 ];
