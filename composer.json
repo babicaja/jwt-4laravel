@@ -1,0 +1,12 @@
+{
+    "name": "babicaja/jwt-4laravel",
+    "description": "This is a Laravel package which provides all the means for a super easy JWT implementation",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dejan Babić",
+            "email": "babicaja@gmail.com"
+        }
+    ],
+    "require": {}
+}
