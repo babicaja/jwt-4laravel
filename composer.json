@@ -26,5 +26,12 @@
     "psr-4": {
       "Tests\\JWT4L\\": "tests/"
     }
-  }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "JWT4L\\Providers\\JWTServiceProvider"
+      ]
+    }
+  },
 }

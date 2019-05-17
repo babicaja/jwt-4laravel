@@ -53,5 +53,8 @@ class JWTServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/config/jwt-4laravel.php' => config_path('jwt-4laravel.php'),
+        ]);
     }
 }
