@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\JWT\Checks;
+namespace JWT4L\Checks;
 
-use App\Services\JWT\Exceptions\JWTNotValidException;
+use JWT4L\Exceptions\JWTNotValidException;
 
 class Structure implements CheckContract
 {

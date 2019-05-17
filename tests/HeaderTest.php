@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit\JWT;
+namespace Tests\JWT4L;
 
-use App\Services\JWT\Sections\Header;
-use Tests\TestCase;
+use JWT4L\Exceptions\JWTAlgorithmNotSupportedException;
+use JWT4L\Sections\Header;
 
-class HeaderTest extends TestCase
+class HeaderTest extends PackageTest
 {
     /**
      * @var Header
@@ -49,16 +49,13 @@ class HeaderTest extends TestCase
 
     /**
      * @test
-     * @expectedException \App\Services\JWT\Exceptions\JWTAlgorithmNotSupportedException
-     * @expectedExceptionCode 400
-     * @expectedExceptionMessage The test algorithm is not supported
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function it_will_throw_if_the_algorithm_is_unsupported()
     {
         // set the algorithm type in the config
         config(['jwt.algorithm' => 'test']);
-
+        $this->expectException(JWTAlgorithmNotSupportedException::class);
         $this->app->make(Header::class);
     }
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\JWT\Traits;
+namespace JWT4L\Traits;
 
-use App\Services\JWT\Exceptions\JWTAuthorizationHeaderMissingException;
+use JWT4L\Exceptions\JWTAuthorizationHeaderMissingException;
 
 trait TokenFromRequest
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services\JWT\Traits;
+namespace JWT4L\Traits;
 
-use App\Services\JWT\Exceptions\JWTHeaderNotValidException;
-use App\Services\JWT\Exceptions\JWTNotValidException;
-use App\Services\JWT\Exceptions\JWTPayloadNotValidException;
-use App\Services\JWT\Sections\Header;
-use App\Services\JWT\Sections\Payload;
+use JWT4L\Exceptions\JWTHeaderNotValidException;
+use JWT4L\Exceptions\JWTNotValidException;
+use JWT4L\Exceptions\JWTPayloadNotValidException;
+use JWT4L\Sections\Header;
+use JWT4L\Sections\Payload;
 
 trait Detokenize
 {

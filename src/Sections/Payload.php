@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\JWT\Sections;
+namespace JWT4L\Sections;
 
 use Carbon\CarbonImmutable;
 

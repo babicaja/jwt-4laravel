@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\JWT;
+namespace JWT4L;
 
-use App\Services\JWT\Sections\Header;
-use App\Services\JWT\Sections\Payload;
-use App\Services\JWT\Sections\Signature;
+use JWT4L\Sections\Header;
+use JWT4L\Sections\Payload;
+use JWT4L\Sections\Signature;
 
 class Generator
 {

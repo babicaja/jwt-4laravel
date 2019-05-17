@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\JWT\Traits;
+namespace JWT4L\Traits;
 
 trait Encoder
 {

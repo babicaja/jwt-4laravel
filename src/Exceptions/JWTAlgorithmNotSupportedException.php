@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\JWT\Exceptions;
+namespace JWT4L\Exceptions;
 
 use Exception;
 

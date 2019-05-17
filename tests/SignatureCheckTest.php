@@ -1,13 +1,15 @@
 <?php
 
-namespace Tests\Unit\JWT;
+namespace Tests\JWT4L;
 
-use App\Services\JWT\Checks\Signature;
-use App\Services\JWT\Generator;
-use App\Services\JWT\Traits\Encoder;
-use Tests\TestCase;
+use JWT4L\Checks\Signature;
+use JWT4L\Exceptions\JWTHeaderNotValidException;
+use JWT4L\Exceptions\JWTPayloadNotValidException;
+use JWT4L\Exceptions\JWTSignatureNotValidException;
+use JWT4L\Generator;
+use JWT4L\Traits\Encoder;
 
-class SignatureCheckTest extends TestCase
+class SignatureCheckTest extends PackageTest
 {
     use Encoder;
 
@@ -39,7 +41,6 @@ class SignatureCheckTest extends TestCase
     /**
      * @test
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @expectedException \App\Services\JWT\Exceptions\JWTSignatureNotValidException
      */
     public function it_will_throw_a_proper_exception_if_the_token_signatures_are_not_equal()
     {
@@ -48,6 +49,9 @@ class SignatureCheckTest extends TestCase
         config(['jwt.expires'  => 15]);
 
         $token = $this->app->make(Generator::class)->create();
+
+        $this->expectException(JWTSignatureNotValidException::class);
+
         $this->check->validate($token);
     }
 
@@ -58,48 +62,44 @@ class SignatureCheckTest extends TestCase
         $this->assertNull($this->check->validate($this->validToken));
     }
 
-    /**
-     * @test
-     * @expectedException \App\Services\JWT\Exceptions\JWTSignatureNotValidException
-     */
+    /** @test */
     public function it_will_throw_a_proper_exception_if_the_header_claims_were_manipulated()
     {
         $manipulatedHeader = $this->encode(['typ' => 'manipulated', 'alg' => 'very-bad']);
         $manipulatedToken = $this->replaceSectionInToken($this->validToken, $manipulatedHeader, 0);
 
+        $this->expectException(JWTSignatureNotValidException::class);
+
         $this->check->validate($manipulatedToken);
     }
 
-    /**
-     * @test
-     * @expectedException \App\Services\JWT\Exceptions\JWTSignatureNotValidException
-     */
+    /** @test */
     public function it_will_throw_a_proper_exception_if_the_payload_claims_were_manipulated()
     {
         $manipulatedPayload = $this->encode(['exp' => "2012-12-21"]);
         $manipulatedToken = $this->replaceSectionInToken($this->validToken, $manipulatedPayload, 1);
 
+        $this->expectException(JWTSignatureNotValidException::class);
+
         $this->check->validate($manipulatedToken);
     }
 
-    /**
-     * @test
-     * @expectedException \App\Services\JWT\Exceptions\JWTHeaderNotValidException
-     */
+    /** @test */
     public function it_will_throw_a_proper_exception_if_the_header_claims_are_invalid()
     {
         $manipulatedToken = $this->replaceSectionInToken($this->validToken, "bad-header", 0);
 
+        $this->expectException(JWTHeaderNotValidException::class);
+
         $this->check->validate($manipulatedToken);
     }
 
-    /**
-     * @test
-     * @expectedException \App\Services\JWT\Exceptions\JWTPayloadNotValidException
-     */
+    /** @test */
     public function it_will_throw_a_proper_exception_if_the_payload_claims_are_invalid()
     {
         $manipulatedToken = $this->replaceSectionInToken($this->validToken, "bad-payload", 1);
+
+        $this->expectException(JWTPayloadNotValidException::class);
 
         $this->check->validate($manipulatedToken);
     }

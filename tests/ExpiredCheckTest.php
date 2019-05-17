@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Unit\JWT;
+namespace Tests\JWT4L;
 
-use App\Services\JWT\Checks\Expired;
-use App\Services\JWT\Generator;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use Tests\TestCase;
+use JWT4L\Checks\Expired;
+use JWT4L\Exceptions\JWTExpiredException;
+use JWT4L\Generator;
 
-class ExpiredCheckTest extends TestCase
+class ExpiredCheckTest extends PackageTest
 {
     /**
      * @var CarbonImmutable
@@ -56,13 +56,12 @@ class ExpiredCheckTest extends TestCase
         $this->token = $this->generator->create();
     }
 
-    /**
-     * @test
-     * @expectedException \App\Services\JWT\Exceptions\JWTExpiredException
-     */
+    /** @test */
     public function it_will_throw_a_proper_exception_if_the_token_has_expired()
     {
         Carbon::setTestNow($this->testNow->addMinutes($this->expiresIn + 1));
+        $this->expectException(JWTExpiredException::class);
+
         $this->check->validate($this->token);
     }
 

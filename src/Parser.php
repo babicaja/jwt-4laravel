@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\JWT;
+namespace JWT4L;
 
-use App\Services\JWT\Traits\Detokenize;
-use App\Services\JWT\Traits\TokenFromRequest;
+use JWT4L\Traits\Detokenize;
+use JWT4L\Traits\TokenFromRequest;
 
 class Parser
 {

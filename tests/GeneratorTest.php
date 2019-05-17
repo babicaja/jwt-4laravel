@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Unit\JWT;
+namespace Tests\JWT4L;
 
-use App\Services\JWT\Generator;
 use Carbon\CarbonImmutable;
-use Tests\TestCase;
+use JWT4L\Generator;
 
-class GeneratorTest extends TestCase
+class GeneratorTest extends PackageTest
 {
     /**
      * @var Generator

@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Unit\JWT;
+namespace Tests\JWT4L;
 
-use App\Services\JWT\Sections\Payload;
 use Carbon\CarbonImmutable;
-use Tests\TestCase;
+use JWT4L\Sections\Payload;
 
-class PayloadTest extends TestCase
+class PayloadTest extends PackageTest
 {
     /**
      * @var Payload

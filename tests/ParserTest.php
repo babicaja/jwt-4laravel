@@ -1,15 +1,16 @@
 <?php
 
-namespace Tests\Unit\JWT;
+namespace Tests\JWT4L;
 
-use App\Services\JWT\Checks\Structure;
-use App\Services\JWT\Generator;
-use App\Services\JWT\Parser;
-use App\Services\JWT\Sections\Header;
-use App\Services\JWT\Sections\Payload;
-use Tests\TestCase;
+use JWT4L\Checks\Structure;
+use JWT4L\Exceptions\JWTAuthorizationHeaderMissingException;
+use JWT4L\Exceptions\JWTNotValidException;
+use JWT4L\Generator;
+use JWT4L\Parser;
+use JWT4L\Sections\Header;
+use JWT4L\Sections\Payload;
 
-class ParserTest extends TestCase
+class ParserTest extends PackageTest
 {
     /**
      * @var string
@@ -50,11 +51,11 @@ class ParserTest extends TestCase
 
     /**
      * @test
-     * @expectedException \App\Services\JWT\Exceptions\JWTNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function it_will_throw_a_proper_exception_if_validation_fails()
     {
+        $this->expectException(JWTNotValidException::class);
         $this->parser->validate("one.two");
     }
 
@@ -88,11 +89,11 @@ class ParserTest extends TestCase
 
     /**
      * @test
-     * @expectedException \App\Services\JWT\Exceptions\JWTAuthorizationHeaderMissingException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function it_will_throw_a_proper_exception_if_the_token_is_not_in_the_headers()
     {
+        $this->expectException(JWTAuthorizationHeaderMissingException::class);
         $this->parser->validate();
     }
 }

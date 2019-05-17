@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\JWT\Traits;
+namespace JWT4L\Traits;
 
-use App\Services\JWT\Exceptions\JWTAlgorithmNotSupportedException;
+use JWT4L\Exceptions\JWTAlgorithmNotSupportedException;
 
 trait AlgorithmCheck
 {

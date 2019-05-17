@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\JWT\Sections;
+namespace JWT4L\Sections;
 
-use App\Services\JWT\Traits\AlgorithmCheck;
-use App\Services\JWT\Traits\Encoder;
+use JWT4L\Traits\AlgorithmCheck;
+use JWT4L\Traits\Encoder;
 
 abstract class Section implements \JsonSerializable
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Providers;
+namespace JWT4L\Providers;
 
-use App\Services\JWT\JwtGuard;
-use App\Services\JWT\Parser;
-use App\Services\JWT\Sections\Header;
-use App\Services\JWT\Sections\Payload;
-use App\Services\JWT\Sections\Signature;
+use JWT4L\JwtGuard;
+use JWT4L\Parser;
+use JWT4L\Sections\Header;
+use JWT4L\Sections\Payload;
+use JWT4L\Sections\Signature;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 

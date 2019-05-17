@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Services\JWT\Checks;
+namespace JWT4L\Checks;
 
-use App\Services\JWT\Exceptions\JWTSignatureNotValidException;
-use App\Services\JWT\Traits\AlgorithmCheck;
-use App\Services\JWT\Traits\Detokenize;
-use App\Services\JWT\Traits\Encoder;
+use JWT4L\Exceptions\JWTSignatureNotValidException;
+use JWT4L\Traits\AlgorithmCheck;
+use JWT4L\Traits\Detokenize;
+use JWT4L\Traits\Encoder;
 
 class Signature implements CheckContract
 {
     use AlgorithmCheck, Encoder, Detokenize;
 
     /**
-     * @var \App\Services\JWT\Sections\Signature
+     * @var \JWT4L\Sections\Signature
      */
     private $signature;
 
-    public function __construct(\App\Services\JWT\Sections\Signature $signature)
+    public function __construct(\JWT4L\Sections\Signature $signature)
     {
         $this->signature = $signature;
     }

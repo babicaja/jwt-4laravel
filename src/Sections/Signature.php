@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\JWT\Sections;
+namespace JWT4L\Sections;
 
-use App\Services\JWT\Exceptions;
-use App\Services\JWT\Traits\AlgorithmCheck;
-use App\Services\JWT\Traits\Encoder;
+use JWT4L\Exceptions;
+use JWT4L\Traits\AlgorithmCheck;
+use JWT4L\Traits\Encoder;
 
 class Signature
 {

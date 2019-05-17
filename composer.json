@@ -1,12 +1,30 @@
 {
-    "name": "babicaja/jwt-4laravel",
-    "description": "This is a Laravel package which provides all the means for a super easy JWT implementation",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Dejan Babić",
-            "email": "babicaja@gmail.com"
-        }
-    ],
-    "require": {}
+  "name": "babicaja/jwt-4laravel",
+  "description": "This is a Laravel package which provides all the means for a super easy JWT implementation",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dejan Babić",
+      "email": "babicaja@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.2",
+    "illuminate/support": "^5.8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.1",
+    "nunomaduro/phpinsights": "^1.2",
+    "orchestra/testbench": "^3.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "JWT4L\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\JWT4L\\": "tests/"
+    }
+  }
 }

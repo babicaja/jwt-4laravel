@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\JWT\Checks;
+namespace JWT4L\Checks;
 
 interface CheckContract
 {

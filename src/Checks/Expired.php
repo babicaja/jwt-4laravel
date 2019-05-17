@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\JWT\Checks;
+namespace JWT4L\Checks;
 
-use App\Services\JWT\Exceptions\JWTExpiredException;
-use App\Services\JWT\Traits\Detokenize;
+use JWT4L\Exceptions\JWTExpiredException;
+use JWT4L\Traits\Detokenize;
 use Illuminate\Support\Carbon;
 
 class Expired implements CheckContract

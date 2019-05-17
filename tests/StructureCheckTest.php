@@ -1,20 +1,21 @@
 <?php
 
-namespace Tests\Unit\JWT;
+namespace Tests\JWT4L;
 
-use App\Services\JWT\Checks\Structure;
-use Tests\TestCase;
+use JWT4L\Checks\Structure;
+use JWT4L\Exceptions\JWTNotValidException;
 
-class StructureCheckTest extends TestCase
+class StructureCheckTest extends PackageTest
 {
     /**
      * @test
-     * @expectedException \App\Services\JWT\Exceptions\JWTNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function it_will_throw_a_proper_exception_if_a_three_part_token_is_not_provided()
     {
         $check = $this->app->make(Structure::class);
+
+        $this->expectException(JWTNotValidException::class);
 
         $check->validate('one.two');
     }

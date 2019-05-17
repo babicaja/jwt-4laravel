@@ -1,23 +1,21 @@
 <?php
 
-namespace Tests\Unit\JWT;
+namespace Tests\JWT4L;
 
-use App\Services\JWT\Sections\Header;
-use App\Services\JWT\Sections\Payload;
-use App\Services\JWT\Sections\Signature;
-use Tests\TestCase;
+use JWT4L\Exceptions\JWTAlgorithmNotSupportedException;
+use JWT4L\Sections\Header;
+use JWT4L\Sections\Payload;
+use JWT4L\Sections\Signature;
 
-class SignatureTest extends TestCase
+class SignatureTest extends PackageTest
 {
     /**
      * @test
-     * @expectedException \App\Services\JWT\Exceptions\JWTAlgorithmNotSupportedException
-     * @expectedExceptionCode 400
-     * @expectedExceptionMessage The test algorithm is not supported
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function it_will_throw_if_the_algorithm_is_unsupported()
     {
+        $this->expectException(JWTAlgorithmNotSupportedException::class);
         $this->makeSignatureWithAlgorithm('test');
     }
 
@@ -43,6 +41,11 @@ class SignatureTest extends TestCase
         $this->assertTrue(hash_equals($manualSignature, $hashedSignature));
     }
 
+    /**
+     * All the supported hash algorithms.
+     *
+     * @return array
+     */
     public function supportedAlgorithms()
     {
         return array_map(function($value){

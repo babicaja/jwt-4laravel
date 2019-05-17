@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\JWT;
+namespace JWT4L;
 
-use App\Services\JWT\Parser as JWTParser;
+use JWT4L\Parser as JWTParser;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
@@ -33,8 +33,8 @@ class JwtGuard implements Guard
      * Determine if the current user is authenticated.
      *
      * @return bool
-     * @throws \App\Services\JWT\Exceptions\JWTHeaderNotValidException
-     * @throws \App\Services\JWT\Exceptions\JWTPayloadNotValidException
+     * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
+     * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function check()
@@ -46,8 +46,8 @@ class JwtGuard implements Guard
      * Determine if the current user is a guest.
      *
      * @return bool
-     * @throws \App\Services\JWT\Exceptions\JWTHeaderNotValidException
-     * @throws \App\Services\JWT\Exceptions\JWTPayloadNotValidException
+     * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
+     * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function guest()
@@ -59,8 +59,8 @@ class JwtGuard implements Guard
      * Get the currently authenticated user.
      *
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
-     * @throws \App\Services\JWT\Exceptions\JWTHeaderNotValidException
-     * @throws \App\Services\JWT\Exceptions\JWTPayloadNotValidException
+     * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
+     * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function user()
@@ -78,8 +78,8 @@ class JwtGuard implements Guard
      * Get the ID for the currently authenticated user.
      *
      * @return int|null
-     * @throws \App\Services\JWT\Exceptions\JWTHeaderNotValidException
-     * @throws \App\Services\JWT\Exceptions\JWTPayloadNotValidException
+     * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
+     * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function id()
