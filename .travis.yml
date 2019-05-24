@@ -3,6 +3,12 @@ language: php
 php:
 - 7.2
 
+before_script:
+- travis_retry composer self-update
+- travis_retry composer install --no-interaction --prefer-source --dev
+
 script:
-- composer install --no-interaction
 - vendor/bin/phpunit
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)
