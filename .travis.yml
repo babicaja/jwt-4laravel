@@ -4,4 +4,5 @@ php:
 - 7.2
 
 script:
+- composer install
 - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
