@@ -4,5 +4,5 @@ php:
 - 7.2
 
 script:
-- composer install
-- vendor/bin/phpunit tests --coverage-text --coverage-clover=coverage.clover
+- composer install --no-interaction
+- vendor/bin/phpunit
