@@ -5,4 +5,4 @@ php:
 
 script:
 - composer install
-- vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+- vendor/bin/phpunit tests --coverage-text --coverage-clover=coverage.clover
