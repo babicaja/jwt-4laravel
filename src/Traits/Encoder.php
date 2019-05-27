@@ -16,17 +16,6 @@ trait Encoder
     }
 
     /**
-     * Decodes a string. The string is base64_decoded and then json_decoded.
-     *
-     * @param string $string
-     * @return mixed
-     */
-    public function decode(string $string)
-    {
-        return json_decode(base64_decode($string));
-    }
-
-    /**
      * Hash the data with specified algorithm and secret.
      *
      * @param string $algorithm

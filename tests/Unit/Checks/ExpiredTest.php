@@ -4,7 +4,7 @@ namespace Tests\JWT4L\Unit\Checks;
 
 use JWT4L\Checks\Expired;
 use JWT4L\Exceptions\JWTExpiredException;
-use JWT4L\Generator;
+use JWT4L\Token\Generator;
 use Tests\JWT4L\BaseTest;
 
 class ExpiredTest extends BaseTest

@@ -1,14 +1,15 @@
 <?php
 
-namespace Tests\JWT4L;
+namespace Tests\JWT4L\Unit\Token;
 
 use JWT4L\Checks\Structure;
 use JWT4L\Exceptions\JWTAuthorizationHeaderMissingException;
 use JWT4L\Exceptions\JWTNotValidException;
-use JWT4L\Generator;
-use JWT4L\Parser;
+use JWT4L\Token\Generator;
+use JWT4L\Token\Parser;
 use JWT4L\Sections\Header;
 use JWT4L\Sections\Payload;
+use Tests\JWT4L\BaseTest;
 
 class ParserTest extends BaseTest
 {

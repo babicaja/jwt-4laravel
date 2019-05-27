@@ -3,7 +3,7 @@
 namespace JWT4L\Providers;
 
 use JWT4L\JwtGuard;
-use JWT4L\Parser;
+use JWT4L\Token\Parser;
 use JWT4L\Sections\Header;
 use JWT4L\Sections\Payload;
 use JWT4L\Sections\Signature;

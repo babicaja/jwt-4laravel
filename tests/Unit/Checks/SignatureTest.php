@@ -6,7 +6,7 @@ use JWT4L\Checks\Signature;
 use JWT4L\Exceptions\JWTHeaderNotValidException;
 use JWT4L\Exceptions\JWTPayloadNotValidException;
 use JWT4L\Exceptions\JWTSignatureNotValidException;
-use JWT4L\Generator;
+use JWT4L\Token\Generator;
 use JWT4L\Traits\Encoder;
 use Tests\JWT4L\BaseTest;
 

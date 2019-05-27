@@ -5,7 +5,7 @@ namespace JWT4L;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
-use JWT4L\Parser as JWTParser;
+use JWT4L\Token\Parser as JWTParser;
 
 class JwtGuard implements Guard
 {

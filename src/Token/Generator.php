@@ -1,6 +1,6 @@
 <?php
 
-namespace JWT4L;
+namespace JWT4L\Token;
 
 use JWT4L\Sections\Header;
 use JWT4L\Sections\Payload;

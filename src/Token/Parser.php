@@ -1,7 +1,8 @@
 <?php
 
-namespace JWT4L;
+namespace JWT4L\Token;
 
+use JWT4L\Exceptions;
 use JWT4L\Traits\Detokenize;
 use JWT4L\Traits\TokenFromRequest;
 
