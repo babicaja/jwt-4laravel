@@ -32,7 +32,10 @@
     "laravel": {
       "providers": [
         "JWT4L\\Providers\\JWTServiceProvider"
-      ]
+      ],
+      "aliases": {
+        "Token": "JWT4L\\Facades\\Token"
+      }
     }
   }
 }

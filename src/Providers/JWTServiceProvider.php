@@ -3,6 +3,7 @@
 namespace JWT4L\Providers;
 
 use JWT4L\JwtGuard;
+use JWT4L\Token;
 use JWT4L\Token\Parser;
 use JWT4L\Sections\Header;
 use JWT4L\Sections\Payload;
@@ -37,6 +38,11 @@ class JWTServiceProvider extends ServiceProvider
         $this->app->bind(Parser::class, function () {
 
             return new Parser(config('jwt.checks', []));
+        });
+
+        $this->app->bind('jwt-token', function ($app) {
+
+            return new Token($app->make(Token\Generator::class), $app->make(Parser::class));
         });
 
         Auth::extend('jwt', function($app, $name, array $config){
