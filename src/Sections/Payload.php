@@ -2,7 +2,7 @@
 
 namespace JWT4L\Sections;
 
-use Carbon\CarbonImmutable;
+use Carbon\Carbon;
 
 class Payload extends Section
 {
@@ -13,11 +13,9 @@ class Payload extends Section
      */
     public function __construct(int $minutes)
     {
-        $now = CarbonImmutable::now();
-
         $this->claims = [
-            "iat" => $now,
-            "exp" => $now->addMinutes($minutes),
+            "iat" => Carbon::now(),
+            "exp" => Carbon::now()->addMinutes($minutes),
         ];
     }
 }
