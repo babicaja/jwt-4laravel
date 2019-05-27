@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\JWT4L;
+namespace Tests\JWT4L\Unit\Checks;
 
 use JWT4L\Checks\Signature;
 use JWT4L\Exceptions\JWTHeaderNotValidException;
@@ -8,8 +8,9 @@ use JWT4L\Exceptions\JWTPayloadNotValidException;
 use JWT4L\Exceptions\JWTSignatureNotValidException;
 use JWT4L\Generator;
 use JWT4L\Traits\Encoder;
+use Tests\JWT4L\BaseTest;
 
-class SignatureCheckTest extends PackageTest
+class SignatureTest extends BaseTest
 {
     use Encoder;
 
@@ -23,30 +24,18 @@ class SignatureCheckTest extends PackageTest
      */
     private $validToken;
 
-    /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
     protected function setUp(): void
     {
         parent::setUp();
-
-        config(['jwt.algorithm'  => 'sha256']);
-        config(['jwt.secret'  => 'signature-secret']);
-        config(['jwt.expires'  => 15]);
 
         $this->check = $this->app->make(Signature::class);
         $this->validToken = $this->app->make(Generator::class)->create();
     }
 
-    /**
-     * @test
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
+    /** @test */
     public function it_will_throw_a_proper_exception_if_the_token_signatures_are_not_equal()
     {
-        config(['jwt.algorithm'  => 'sha256']);
-        config(['jwt.secret'  => 'not-signature-secret']);
-        config(['jwt.expires'  => 15]);
+        $this->overrideConfiguration(['jwt.secret'  => 'not-signature-secret']);
 
         $token = $this->app->make(Generator::class)->create();
 

@@ -1,18 +1,16 @@
 <?php
 
-namespace Tests\JWT4L;
+namespace Tests\JWT4L\Unit\Sections;
 
 use JWT4L\Exceptions\JWTAlgorithmNotSupportedException;
 use JWT4L\Sections\Header;
 use JWT4L\Sections\Payload;
 use JWT4L\Sections\Signature;
+use Tests\JWT4L\BaseTest;
 
-class SignatureTest extends PackageTest
+class SignatureTest extends BaseTest
 {
-    /**
-     * @test
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
+    /** @test */
     public function it_will_throw_if_the_algorithm_is_unsupported()
     {
         $this->expectException(JWTAlgorithmNotSupportedException::class);
@@ -58,13 +56,11 @@ class SignatureTest extends PackageTest
      *
      * @param string $algorithm
      * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     private function makeSignatureWithAlgorithm(string $algorithm)
     {
         // set the algorithm type in the config
-        config(['jwt.algorithm' => $algorithm]);
-        config(['jwt.secret' => 'test-secret']);
+        $this->overrideConfiguration(['jwt.algorithm' => $algorithm]);
 
         return $this->app->make(Signature::class);
     }
