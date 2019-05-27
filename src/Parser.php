@@ -14,6 +14,11 @@ class Parser
      */
     private $checks;
 
+    /**
+     * Parser constructor.
+     *
+     * @param array $checks
+     */
     public function __construct(array $checks = [])
     {
         $this->checks = $checks;
@@ -26,6 +31,7 @@ class Parser
      * @param string|null $token
      * @return Parser
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws Exceptions\JWTAuthorizationHeaderMissingException
      */
     public function validate(string $token = null)
     {
@@ -45,6 +51,7 @@ class Parser
      * @throws Exceptions\JWTHeaderNotValidException
      * @throws Exceptions\JWTPayloadNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws Exceptions\JWTAuthorizationHeaderMissingException
      */
     public function payload(string $token = null)
     {
@@ -58,6 +65,7 @@ class Parser
      * @throws Exceptions\JWTHeaderNotValidException
      * @throws Exceptions\JWTPayloadNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws Exceptions\JWTAuthorizationHeaderMissingException
      */
     public function header(string $token = null)
     {

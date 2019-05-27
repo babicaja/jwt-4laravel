@@ -2,10 +2,10 @@
 
 namespace JWT4L;
 
-use JWT4L\Parser as JWTParser;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
+use JWT4L\Parser as JWTParser;
 
 class JwtGuard implements Guard
 {
@@ -36,6 +36,7 @@ class JwtGuard implements Guard
      * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
      * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws Exceptions\JWTAuthorizationHeaderMissingException
      */
     public function check()
     {
@@ -49,6 +50,7 @@ class JwtGuard implements Guard
      * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
      * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws Exceptions\JWTAuthorizationHeaderMissingException
      */
     public function guest()
     {
@@ -62,6 +64,7 @@ class JwtGuard implements Guard
      * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
      * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws Exceptions\JWTAuthorizationHeaderMissingException
      */
     public function user()
     {
@@ -81,6 +84,7 @@ class JwtGuard implements Guard
      * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
      * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws Exceptions\JWTAuthorizationHeaderMissingException
      */
     public function id()
     {
