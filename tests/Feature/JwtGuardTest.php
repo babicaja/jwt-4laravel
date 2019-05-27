@@ -2,6 +2,8 @@
 
 namespace Tests\JWT4L\Feature;
 
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use JWT4L\Generator;
 use Tests\JWT4L\BaseTest;
 
@@ -42,5 +44,18 @@ class JwtGuardTest extends BaseTest
         $response = $this->withHeader('Authorization', "Bearer {$token}")->get('/test-jwt-route');
 
         $this->assertEquals("JWT SUCCESS", $response->getContent());
+    }
+
+    /** @test */
+    public function it_will_provide_user_info_through_guard_commands()
+    {
+        $token = $this->generator->withPayload(['sub' => 1])->create();
+
+        $this->withHeader('Authorization', "Bearer {$token}")->get('/test-jwt-route');
+
+        $this->assertInstanceOf(Authenticatable::class, Auth::user());
+        $this->assertEquals(1, Auth::id());
+        $this->assertEquals(false, Auth::guest());
+        $this->assertEquals(true, Auth::validate(['email' => 'example@example.com', 'password' => 'test']));
     }
 }

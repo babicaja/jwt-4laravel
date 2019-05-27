@@ -15,6 +15,7 @@ class TestUserProvider implements UserProvider
     public function __construct()
     {
         $this->user = \Mockery::mock(Authenticatable::class);
+        $this->user->shouldReceive("getAuthIdentifier")->andReturn(1);
     }
 
     /**

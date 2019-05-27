@@ -88,9 +88,7 @@ class JwtGuard implements Guard
      */
     public function id()
     {
-        if ($this->user()) {
-            return $this->user()->getAuthIdentifier();
-        }
+        return $this->user()->getAuthIdentifier();
     }
 
     /**
