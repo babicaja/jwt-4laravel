@@ -38,14 +38,14 @@ class Token
      */
     public function __call($name, $arguments)
     {
-        if (!count($this->tokenManagers)) throw new \Exception("The $name method is not supported.");
-
         try
         {
-            return call_user_func_array([array_shift($this->tokenManagers), $name], $arguments);
+            return call_user_func_array([current($this->tokenManagers), $name], $arguments);
         }
         catch (ErrorException $exception)
         {
+            if (!next($this->tokenManagers)) throw new \Exception("The $name method is not supported.");
+
             return $this->__call($name, $arguments);
         }
     }

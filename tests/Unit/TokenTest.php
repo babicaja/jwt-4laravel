@@ -39,4 +39,14 @@ class TokenTest extends BaseTest
         $this->expectExceptionMessage("The invalid method is not supported");
         $this->token->invalid();
     }
+
+    /** @test **/
+    public function it_can_make_subsequent_calls()
+    {
+        $this->assertIsString($this->token->create());
+        $this->assertIsString($this->token->create());
+        $this->assertIsString($this->token->create());
+        $this->assertIsString($this->token->create());
+        $this->assertIsString($this->token->create());
+    }
 }
