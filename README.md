@@ -1,4 +1,4 @@
-#JWT for Laravel
+# JWT for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/babicaja/jwt-4laravel.svg?style=flat-square)](https://packagist.org/packages/babicaja/jwt-4laravel)
 [![Total Downloads](https://img.shields.io/packagist/dt/babicaja/jwt-4laravel.svg?style=flat-square)](https://packagist.org/packages/babicaja/jwt-4laravel)
@@ -16,7 +16,7 @@
 - [Contributing](#contributing)
 - [Licensing](#licensing)
 
-##Installation
+## Installation
 
 Make sure you include this package as part of your Laravel project. You can do so by running the composer command from below.
 
@@ -24,7 +24,7 @@ Make sure you include this package as part of your Laravel project. You can do s
 composer require babicaja/jwt-4laravel
 ```
 
-##Getting started
+## Getting started
 
 To start using the JWT for Laravel package you'll need to do a couple of standard steps to ensure all the bindings are in place and that the configuration file is published. After that you can configure the package to suit your needs, and start using it through the Token facade or using the JWTGuard. Just follow the steps below, and you will be done in no time. 
 
@@ -60,15 +60,15 @@ Psy Shell v0.9.9 (PHP 7.3.6-1+ubuntu18.04.1+deb.sury.org+1 — cli) by Justin Hi
 => "eyJ0eXAiOiJKV1QiLCJhbGciOiJzaGEyNTYifQ==.eyJpYXQiOiIyMDE5LTA2LTE2VDIxOjM3OjI1Ljg5MTMwNloiLCJleHAiOiIyMDE5LTA2LTE2VDIxOjUyOjI1Ljg5MTM2MloifQ==.6d0344ec099e0e4b3304d5fa0436945d6ffb0d4545b6c7e759da54f890b52d48"
 ```
 
-##Configuration
+## Configuration
 
 Out of the box the configuration file comes with values which you can use as they are. You should probably change the `secret` for any production code. Nevertheless, all of the configuration options will be explained so you can tailor the package for your own needs.
 
-##Usage
+## Usage
 TBD
-##Components
+## Components
 TBD
-##Contributing
+## Contributing
 TBD
-##Licensing
+## Licensing
 TBD
