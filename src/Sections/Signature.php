@@ -20,7 +20,7 @@ class Signature
      *
      * @param string $algorithm
      * @param string $secret
-     * @throws Exceptions\JWTAlgorithmNotSupportedException
+     * @throws Exceptions\JWTAlgorithmNotSupported
      */
     public function __construct(string $algorithm, string $secret)
     {

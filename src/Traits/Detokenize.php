@@ -2,9 +2,9 @@
 
 namespace JWT4L\Traits;
 
-use JWT4L\Exceptions\JWTHeaderNotValidException;
-use JWT4L\Exceptions\JWTNotValidException;
-use JWT4L\Exceptions\JWTPayloadNotValidException;
+use JWT4L\Exceptions\JWTHeaderNotValid;
+use JWT4L\Exceptions\JWTNotValid;
+use JWT4L\Exceptions\JWTPayloadNotValid;
 use JWT4L\Sections\Header;
 use JWT4L\Sections\Payload;
 
@@ -15,13 +15,13 @@ trait Detokenize
      *
      * @param string $token
      * @return mixed
-     * @throws JWTHeaderNotValidException
-     * @throws JWTPayloadNotValidException
+     * @throws JWTHeaderNotValid
+     * @throws JWTPayloadNotValid
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function headerFromToken(string $token)
     {
-        $claims = $this->extractClaims($token, 0, JWTHeaderNotValidException::class);
+        $claims = $this->extractClaims($token, 0, JWTHeaderNotValid::class);
 
         return app()->make(Header::class)->with($claims, true);
     }
@@ -31,13 +31,13 @@ trait Detokenize
      *
      * @param string $token
      * @return mixed
-     * @throws JWTHeaderNotValidException
-     * @throws JWTPayloadNotValidException
+     * @throws JWTHeaderNotValid
+     * @throws JWTPayloadNotValid
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function payloadFromToken(string $token)
     {
-        $claims = $this->extractClaims($token, 1, JWTPayloadNotValidException::class);
+        $claims = $this->extractClaims($token, 1, JWTPayloadNotValid::class);
 
         return app()->make(Payload::class)->with($claims, true);
     }
@@ -47,7 +47,7 @@ trait Detokenize
      *
      * @param string $token
      * @return string
-     * @throws JWTNotValidException
+     * @throws JWTNotValid
      */
     protected function signatureFromToken(string $token)
     {
@@ -60,7 +60,7 @@ trait Detokenize
      * @param int $section
      * @param string $exceptionClass
      * @return array
-     * @throws JWTHeaderNotValidException|JWTPayloadNotValidException
+     * @throws JWTHeaderNotValid|JWTPayloadNotValid
      */
     private function extractClaims(string $token, int $section, string $exceptionClass)
     {
@@ -68,9 +68,9 @@ trait Detokenize
         {
             return (array)($this->decodeFromRaw($this->rawSection($token, $section)));
         }
-        catch (JWTNotValidException $exception)
+        catch (JWTNotValid $exception)
         {
-            /** @var JWTHeaderNotValidException|JWTPayloadNotValidException $exceptionClass */
+            /** @var JWTHeaderNotValid|JWTPayloadNotValid $exceptionClass */
             throw new $exceptionClass($exception);
         }
     }
@@ -79,13 +79,13 @@ trait Detokenize
      * @param string $token
      * @param int $section
      * @return string
-     * @throws JWTNotValidException
+     * @throws JWTNotValid
      */
     private function rawSection(string $token, int $section)
     {
         $sections = explode('.', $token);
 
-        if (!isset($sections[$section])) throw new JWTNotValidException();
+        if (!isset($sections[$section])) throw new JWTNotValid();
 
         return $sections[$section];
     }
@@ -93,13 +93,13 @@ trait Detokenize
     /**
      * @param string $raw
      * @return mixed
-     * @throws JWTNotValidException
+     * @throws JWTNotValid
      */
     private function decodeFromRaw(string $raw)
     {
         $std = json_decode(base64_decode($raw));
 
-        if (!$std instanceof \stdClass) throw new JWTNotValidException();
+        if (!$std instanceof \stdClass) throw new JWTNotValid();
 
         return $std;
     }

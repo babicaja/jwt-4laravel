@@ -5,10 +5,10 @@ namespace JWT4L\Exceptions;
 use Exception;
 use Throwable;
 
-class JWTPayloadNotValidException extends Exception
+class JWTNotValid extends Exception
 {
     public function __construct(Throwable $previous = null)
     {
-        parent::__construct("The JWT Payload is not valid", 300, $previous);
+        parent::__construct("The provided token is not valid", 100, $previous);
     }
 }

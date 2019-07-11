@@ -4,7 +4,7 @@ namespace JWT4L\Exceptions;
 
 use Exception;
 
-class JWTAlgorithmNotSupportedException extends Exception
+class JWTAlgorithmNotSupported extends Exception
 {
     public function __construct(string $algorithm)
     {

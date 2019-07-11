@@ -5,7 +5,11 @@ namespace JWT4L;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
-use JWT4L\Token\Parser as JWTParser;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use JWT4L\Exceptions\JWTHeaderNotValid;
+use JWT4L\Exceptions\JWTPayloadNotValid;
+use JWT4L\Managers\Parser as JWTParser;
+use JWT4L\Managers\Validator as JWTValidator;
 
 class JwtGuard implements Guard
 {
@@ -18,14 +22,28 @@ class JwtGuard implements Guard
      * @var Authenticatable
      */
     private $user;
+
+    /**
+     * @var JWTValidator
+     */
+    private $jwtValidator;
+
     /**
      * @var JWTParser
      */
     private $jwtParser;
 
-    public function __construct(UserProvider $userProvider, JWTParser $jwtParser)
+    /**
+     * JwtGuard constructor.
+     *
+     * @param UserProvider $userProvider
+     * @param JWTValidator $jwtValidator
+     * @param JWTParser $jwtParser
+     */
+    public function __construct(UserProvider $userProvider, JWTValidator $jwtValidator, JWTParser $jwtParser)
     {
         $this->userProvider = $userProvider;
+        $this->jwtValidator = $jwtValidator;
         $this->jwtParser = $jwtParser;
     }
 
@@ -33,10 +51,9 @@ class JwtGuard implements Guard
      * Determine if the current user is authenticated.
      *
      * @return bool
-     * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
-     * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws Exceptions\JWTAuthorizationHeaderMissingException
+     * @throws BindingResolutionException
+     * @throws Exceptions\JWTAuthorizationHeaderMissing
+     * @throws Exceptions\JWTCheckNotValid
      */
     public function check()
     {
@@ -47,10 +64,9 @@ class JwtGuard implements Guard
      * Determine if the current user is a guest.
      *
      * @return bool
-     * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
-     * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws Exceptions\JWTAuthorizationHeaderMissingException
+     * @throws BindingResolutionException
+     * @throws Exceptions\JWTAuthorizationHeaderMissing
+     * @throws Exceptions\JWTCheckNotValid
      */
     public function guest()
     {
@@ -60,15 +76,16 @@ class JwtGuard implements Guard
     /**
      * Get the currently authenticated user.
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
-     * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
-     * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws Exceptions\JWTAuthorizationHeaderMissingException
+     * @return Authenticatable|null
+     * @throws BindingResolutionException
+     * @throws Exceptions\JWTAuthorizationHeaderMissing
+     * @throws Exceptions\JWTCheckNotValid
+     * @throws JWTHeaderNotValid
+     * @throws JWTPayloadNotValid
      */
     public function user()
     {
-        $this->jwtParser->validate();
+        $this->jwtValidator->validate();
 
         $user = $this->userProvider->retrieveById($this->jwtParser->payload()->sub);
 
@@ -81,10 +98,11 @@ class JwtGuard implements Guard
      * Get the ID for the currently authenticated user.
      *
      * @return int|null
-     * @throws \JWT4L\Exceptions\JWTHeaderNotValidException
-     * @throws \JWT4L\Exceptions\JWTPayloadNotValidException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws Exceptions\JWTAuthorizationHeaderMissingException
+     * @throws BindingResolutionException
+     * @throws Exceptions\JWTAuthorizationHeaderMissing
+     * @throws Exceptions\JWTCheckNotValid
+     * @throws JWTHeaderNotValid
+     * @throws JWTPayloadNotValid
      */
     public function id()
     {
@@ -108,7 +126,7 @@ class JwtGuard implements Guard
     /**
      * Set the current user.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
+     * @param Authenticatable $user
      * @return void
      */
     public function setUser(Authenticatable $user)

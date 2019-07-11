@@ -3,7 +3,7 @@
 namespace Tests\JWT4L\Unit\Checks;
 
 use JWT4L\Checks\Structure;
-use JWT4L\Exceptions\JWTNotValidException;
+use JWT4L\Exceptions\JWTNotValid;
 use Tests\JWT4L\BaseTest;
 
 class StructureTest extends BaseTest
@@ -13,7 +13,7 @@ class StructureTest extends BaseTest
     {
         $check = $this->app->make(Structure::class);
 
-        $this->expectException(JWTNotValidException::class);
+        $this->expectException(JWTNotValid::class);
 
         $check->validate('one.two');
     }

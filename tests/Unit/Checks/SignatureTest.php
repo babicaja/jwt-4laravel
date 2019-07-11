@@ -3,10 +3,10 @@
 namespace Tests\JWT4L\Unit\Checks;
 
 use JWT4L\Checks\Signature;
-use JWT4L\Exceptions\JWTHeaderNotValidException;
-use JWT4L\Exceptions\JWTPayloadNotValidException;
-use JWT4L\Exceptions\JWTSignatureNotValidException;
-use JWT4L\Token\Generator;
+use JWT4L\Exceptions\JWTHeaderNotValid;
+use JWT4L\Exceptions\JWTPayloadNotValid;
+use JWT4L\Exceptions\JWTSignatureNotValid;
+use JWT4L\Managers\Generator;
 use JWT4L\Traits\Encoder;
 use Tests\JWT4L\BaseTest;
 
@@ -39,7 +39,7 @@ class SignatureTest extends BaseTest
 
         $token = $this->app->make(Generator::class)->create();
 
-        $this->expectException(JWTSignatureNotValidException::class);
+        $this->expectException(JWTSignatureNotValid::class);
 
         $this->check->validate($token);
     }
@@ -57,7 +57,7 @@ class SignatureTest extends BaseTest
         $manipulatedHeader = $this->encode(['typ' => 'manipulated', 'alg' => 'very-bad']);
         $manipulatedToken = $this->replaceSectionInToken($this->validToken, $manipulatedHeader, 0);
 
-        $this->expectException(JWTSignatureNotValidException::class);
+        $this->expectException(JWTSignatureNotValid::class);
 
         $this->check->validate($manipulatedToken);
     }
@@ -68,7 +68,7 @@ class SignatureTest extends BaseTest
         $manipulatedPayload = $this->encode(['exp' => "2012-12-21"]);
         $manipulatedToken = $this->replaceSectionInToken($this->validToken, $manipulatedPayload, 1);
 
-        $this->expectException(JWTSignatureNotValidException::class);
+        $this->expectException(JWTSignatureNotValid::class);
 
         $this->check->validate($manipulatedToken);
     }
@@ -78,7 +78,7 @@ class SignatureTest extends BaseTest
     {
         $manipulatedToken = $this->replaceSectionInToken($this->validToken, "bad-header", 0);
 
-        $this->expectException(JWTHeaderNotValidException::class);
+        $this->expectException(JWTHeaderNotValid::class);
 
         $this->check->validate($manipulatedToken);
     }
@@ -88,7 +88,7 @@ class SignatureTest extends BaseTest
     {
         $manipulatedToken = $this->replaceSectionInToken($this->validToken, "bad-payload", 1);
 
-        $this->expectException(JWTPayloadNotValidException::class);
+        $this->expectException(JWTPayloadNotValid::class);
 
         $this->check->validate($manipulatedToken);
     }

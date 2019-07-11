@@ -2,7 +2,7 @@
 
 namespace JWT4L\Checks;
 
-use JWT4L\Exceptions\JWTSignatureNotValidException;
+use JWT4L\Exceptions\JWTSignatureNotValid;
 use JWT4L\Traits\AlgorithmCheck;
 use JWT4L\Traits\Detokenize;
 use JWT4L\Traits\Encoder;
@@ -33,6 +33,6 @@ class Signature implements CheckContract
         $calculatedHash = $this->signature->sign($this->headerFromToken($token), $this->payloadFromToken($token));
         $providedHash = $this->signatureFromToken($token);
 
-        if (!hash_equals($calculatedHash, $providedHash)) throw new JWTSignatureNotValidException();
+        if (!hash_equals($calculatedHash, $providedHash)) throw new JWTSignatureNotValid();
     }
 }

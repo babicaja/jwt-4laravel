@@ -4,7 +4,7 @@ namespace Tests\JWT4L\Feature;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
-use JWT4L\Token\Generator;
+use JWT4L\Managers\Generator;
 use Tests\JWT4L\BaseTest;
 
 class JwtGuardTest extends BaseTest

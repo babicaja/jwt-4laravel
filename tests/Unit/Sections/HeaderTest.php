@@ -2,7 +2,7 @@
 
 namespace Tests\JWT4L\Unit\Sections;
 
-use JWT4L\Exceptions\JWTAlgorithmNotSupportedException;
+use JWT4L\Exceptions\JWTAlgorithmNotSupported;
 use JWT4L\Sections\Header;
 use Tests\JWT4L\BaseTest;
 
@@ -47,7 +47,7 @@ class HeaderTest extends BaseTest
     {
         // set the algorithm type in the config
         $this->overrideConfiguration(['jwt.algorithm' => 'test']);
-        $this->expectException(JWTAlgorithmNotSupportedException::class);
+        $this->expectException(JWTAlgorithmNotSupported::class);
         $this->app->make(Header::class);
     }
 

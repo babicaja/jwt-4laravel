@@ -2,7 +2,7 @@
 
 namespace JWT4L\Traits;
 
-use JWT4L\Exceptions\JWTAlgorithmNotSupportedException;
+use JWT4L\Exceptions\JWTAlgorithmNotSupported;
 
 trait AlgorithmCheck
 {
@@ -16,11 +16,11 @@ trait AlgorithmCheck
      *
      * @param string $algorithm
      * @return void
-     * @throws JWTAlgorithmNotSupportedException
+     * @throws JWTAlgorithmNotSupported
      */
     public function isSupported(string $algorithm)
     {
-        if (!in_array($algorithm, hash_hmac_algos())) throw new JWTAlgorithmNotSupportedException($algorithm);
+        if (!in_array($algorithm, hash_hmac_algos())) throw new JWTAlgorithmNotSupported($algorithm);
 
         $this->algorithm = $algorithm;
     }

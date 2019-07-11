@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\JWT4L\Unit\Token;
+namespace Tests\JWT4L\Unit\Managers;
 
-use JWT4L\Token\Generator;
+use JWT4L\Managers\Generator;
 use Tests\JWT4L\BaseTest;
 
 class GeneratorTest extends BaseTest

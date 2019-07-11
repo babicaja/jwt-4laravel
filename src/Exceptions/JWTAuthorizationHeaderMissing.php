@@ -5,7 +5,7 @@ namespace JWT4L\Exceptions;
 use Exception;
 use Throwable;
 
-class JWTAuthorizationHeaderMissingException extends Exception
+class JWTAuthorizationHeaderMissing extends Exception
 {
     public function __construct(Throwable $previous = null)
     {

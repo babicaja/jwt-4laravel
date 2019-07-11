@@ -2,7 +2,7 @@
 
 namespace Tests\JWT4L\Unit\Sections;
 
-use JWT4L\Exceptions\JWTAlgorithmNotSupportedException;
+use JWT4L\Exceptions\JWTAlgorithmNotSupported;
 use JWT4L\Sections\Header;
 use JWT4L\Sections\Payload;
 use JWT4L\Sections\Signature;
@@ -13,7 +13,7 @@ class SignatureTest extends BaseTest
     /** @test */
     public function it_will_throw_if_the_algorithm_is_unsupported()
     {
-        $this->expectException(JWTAlgorithmNotSupportedException::class);
+        $this->expectException(JWTAlgorithmNotSupported::class);
         $this->makeSignatureWithAlgorithm('test');
     }
 

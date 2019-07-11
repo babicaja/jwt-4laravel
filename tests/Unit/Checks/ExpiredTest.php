@@ -3,8 +3,8 @@
 namespace Tests\JWT4L\Unit\Checks;
 
 use JWT4L\Checks\Expired;
-use JWT4L\Exceptions\JWTExpiredException;
-use JWT4L\Token\Generator;
+use JWT4L\Exceptions\JWTExpired;
+use JWT4L\Managers\Generator;
 use Tests\JWT4L\BaseTest;
 
 class ExpiredTest extends BaseTest
@@ -45,7 +45,7 @@ class ExpiredTest extends BaseTest
     public function it_will_throw_a_proper_exception_if_the_token_has_expired()
     {
         $this->moveTime($this->expiresIn + 1);
-        $this->expectException(JWTExpiredException::class);
+        $this->expectException(JWTExpired::class);
 
         $this->check->validate($this->token);
     }

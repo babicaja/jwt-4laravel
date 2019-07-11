@@ -2,7 +2,7 @@
 
 namespace JWT4L\Checks;
 
-use JWT4L\Exceptions\JWTNotValidException;
+use JWT4L\Exceptions\JWTNotValid;
 
 class Structure implements CheckContract
 {
@@ -15,6 +15,6 @@ class Structure implements CheckContract
      */
     public function validate(string $token)
     {
-        if (count(explode('.', $token)) !== 3) throw new JWTNotValidException();
+        if (count(explode('.', $token)) !== 3) throw new JWTNotValid();
     }
 }
