@@ -60,4 +60,14 @@ abstract class Section implements \JsonSerializable
     {
         return $this->claims;
     }
+
+    /**
+     * Expose claims on dump.
+     *
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        return $this->claims;
+    }
 }

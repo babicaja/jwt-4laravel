@@ -35,7 +35,7 @@ class ValidatorTest extends BaseTest
      */
     public function it_will_only_run_the_configured_checks_on_validation()
     {
-        $this->assertInstanceOf(Parser::class, $this->validator->validate("one.two.three"));
+        $this->assertTrue($this->validator->validate("one.two.three"));
     }
 
     /**
@@ -74,7 +74,7 @@ class ValidatorTest extends BaseTest
         $this->configure();
         $token = resolve(Generator::class)->create();
         request()->headers->add(["Authorization" => "Bearer {$token}"]);
-        $this->assertInstanceOf(Parser::class, $this->validator->validate());
+        $this->assertTrue($this->validator->validate());
     }
 
     /**

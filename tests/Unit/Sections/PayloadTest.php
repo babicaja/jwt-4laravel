@@ -4,9 +4,12 @@ namespace Tests\JWT4L\Unit\Sections;
 
 use JWT4L\Sections\Payload;
 use Tests\JWT4L\BaseTest;
+use Tests\JWT4L\Traits\CapturesOutputBuffer;
 
 class PayloadTest extends BaseTest
 {
+    use CapturesOutputBuffer;
+
     /**
      * @var Payload
      */
@@ -62,5 +65,15 @@ class PayloadTest extends BaseTest
     public function it_can_be_json_encoded()
     {
         $this->assertJsonStringEqualsJsonString('{"iat":"2012-12-21T12:00:00.000000Z","exp":"2012-12-21T12:15:00.000000Z"}', json_encode($this->payload));
+    }
+
+    /** @test **/
+    public function it_will_expose_claims_on_dump()
+    {
+        $dump = $this->capture("var_dump", $this->payload);
+
+        $this->assertStringContainsString(Payload::class, $dump);
+        $this->assertStringContainsString("iat", $dump);
+        $this->assertStringContainsString("exp", $dump);
     }
 }

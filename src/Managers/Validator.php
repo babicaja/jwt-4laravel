@@ -32,7 +32,7 @@ class Validator
      * will attempt to extract it from the Authorization Bearer header.
      *
      * @param string|null $token
-     * @return Parser
+     * @return boolean
      * @throws BindingResolutionException
      * @throws JWTAuthorizationHeaderMissing
      * @throws JWTCheckNotValid
@@ -44,7 +44,7 @@ class Validator
             $this->makeCheck($check)->validate($this->token($token));
         }
 
-        return app()->make(Parser::class);
+        return true;
     }
 
     /**

@@ -5,9 +5,12 @@ namespace Tests\JWT4L\Unit\Sections;
 use JWT4L\Exceptions\JWTAlgorithmNotSupported;
 use JWT4L\Sections\Header;
 use Tests\JWT4L\BaseTest;
+use Tests\JWT4L\Traits\CapturesOutputBuffer;
 
 class HeaderTest extends BaseTest
 {
+    use CapturesOutputBuffer;
+
     /**
      * @var Header
      */
@@ -61,5 +64,15 @@ class HeaderTest extends BaseTest
     public function it_can_be_json_encoded()
     {
         $this->assertJsonStringEqualsJsonString('{"typ":"JWT","alg":"sha256"}', json_encode($this->header));
+    }
+    
+    /** @test **/
+    public function it_will_expose_claims_on_dump()
+    {
+        $dump = $this->capture("var_dump", $this->header);
+
+        $this->assertStringContainsString(Header::class, $dump);
+        $this->assertStringContainsString("JWT", $dump);
+        $this->assertStringContainsString("sha256", $dump);
     }
 }

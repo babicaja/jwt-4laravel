@@ -4,6 +4,7 @@ namespace JWT4L;
 
 use ErrorException;
 use Exception;
+use JWT4L\Exceptions\JWTMethodNotSupported;
 use JWT4L\Managers\Validator;
 use JWT4L\Sections\Header;
 use JWT4L\Sections\Payload;
@@ -40,21 +41,15 @@ class Token
      */
     public function __call($name, $arguments)
     {
-        try
-        {
-            $result = call_user_func_array([current($this->tokenManagers), $name], $arguments);
-            reset($this->tokenManagers);
-            return $result;
-        }
-        catch (ErrorException $exception)
-        {
-            if (!next($this->tokenManagers))
-            {
-                reset($this->tokenManagers);
-                throw new Exception("The $name method is not supported.");
-            }
+        reset($this->tokenManagers);
 
-            return $this->__call($name, $arguments);
-        }
+        do {
+            try {
+                return call_user_func_array([current($this->tokenManagers), $name], $arguments);
+            } catch (ErrorException $exception){}
+        } while (next($this->tokenManagers));
+
+        /** @noinspection PhpUnreachableStatementInspection */
+        throw new JWTMethodNotSupported("The {$name} method is not supported");
     }
 }
