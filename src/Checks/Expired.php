@@ -3,6 +3,7 @@
 namespace JWT4L\Checks;
 
 use JWT4L\Exceptions\JWTExpired;
+use JWT4L\Exceptions\JWTNoExpiredClaim;
 use JWT4L\Traits\Detokenize;
 use Illuminate\Support\Carbon;
 
@@ -21,6 +22,7 @@ class Expired implements CheckContract
     {
         $payload = $this->payloadFromToken($token);
 
+        if (!$payload->exp) throw new JWTNoExpiredClaim();
         if (!Carbon::now()->isBefore(Carbon::create($payload->exp))) throw new JWTExpired();
     }
 }
