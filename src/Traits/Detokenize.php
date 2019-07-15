@@ -2,11 +2,13 @@
 
 namespace JWT4L\Traits;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use JWT4L\Exceptions\JWTHeaderNotValid;
 use JWT4L\Exceptions\JWTNotValid;
 use JWT4L\Exceptions\JWTPayloadNotValid;
 use JWT4L\Sections\Header;
 use JWT4L\Sections\Payload;
+use stdClass;
 
 trait Detokenize
 {
@@ -17,7 +19,7 @@ trait Detokenize
      * @return mixed
      * @throws JWTHeaderNotValid
      * @throws JWTPayloadNotValid
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     protected function headerFromToken(string $token)
     {
@@ -33,7 +35,7 @@ trait Detokenize
      * @return mixed
      * @throws JWTHeaderNotValid
      * @throws JWTPayloadNotValid
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     protected function payloadFromToken(string $token)
     {
@@ -97,10 +99,10 @@ trait Detokenize
      */
     private function decodeFromRaw(string $raw)
     {
-        $std = json_decode(base64_decode($raw));
+        $decoded = json_decode(base64_decode($raw));
 
-        if (!$std instanceof \stdClass) throw new JWTNotValid();
+        if (!$decoded instanceof stdClass && !is_array($decoded)) throw new JWTNotValid();
 
-        return $std;
+        return $decoded;
     }
 }

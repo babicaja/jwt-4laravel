@@ -4,6 +4,8 @@ namespace Tests\JWT4L\Feature;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
+use JWT4L\Exceptions\JWTHeaderNotValid;
+use JWT4L\Exceptions\JWTNoSubjectClaim;
 use JWT4L\Managers\Generator;
 use Tests\JWT4L\BaseTest;
 
@@ -33,7 +35,7 @@ class JwtGuardTest extends BaseTest
     {
         $response = $this->withHeader('Authorization', 'Bearer a.b.c')->get('/test-jwt-route');
         // since it should pass the structure check, the signature should check the header and fail there
-        $this->assertEquals('The JWT Header is not valid', $response->exception->getMessage());
+        $this->assertInstanceOf(JWTHeaderNotValid::class, $response->exception);
     }
 
     /** @test **/
@@ -57,5 +59,14 @@ class JwtGuardTest extends BaseTest
         $this->assertEquals(1, Auth::id());
         $this->assertEquals(false, Auth::guest());
         $this->assertEquals(true, Auth::validate(['email' => 'example@example.com', 'password' => 'test']));
+    }
+
+    /** @test **/
+    public function it_will_throw_a_proper_exception_if_the_sub_claim_is_missing()
+    {
+        $token = $this->generator->create();
+        $response = $this->withHeader('Authorization', "Bearer {$token}")->get('/test-jwt-route');
+
+        $this->assertInstanceOf(JWTNoSubjectClaim::class, $response->exception);
     }
 }

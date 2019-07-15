@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use JWT4L\Exceptions\JWTHeaderNotValid;
+use JWT4L\Exceptions\JWTNoSubjectClaim;
 use JWT4L\Exceptions\JWTPayloadNotValid;
 use JWT4L\Managers\Parser as JWTParser;
 use JWT4L\Managers\Validator as JWTValidator;
@@ -54,6 +55,9 @@ class JwtGuard implements Guard
      * @throws BindingResolutionException
      * @throws Exceptions\JWTAuthorizationHeaderMissing
      * @throws Exceptions\JWTCheckNotValid
+     * @throws JWTHeaderNotValid
+     * @throws JWTNoSubjectClaim
+     * @throws JWTPayloadNotValid
      */
     public function check()
     {
@@ -67,6 +71,9 @@ class JwtGuard implements Guard
      * @throws BindingResolutionException
      * @throws Exceptions\JWTAuthorizationHeaderMissing
      * @throws Exceptions\JWTCheckNotValid
+     * @throws JWTHeaderNotValid
+     * @throws JWTNoSubjectClaim
+     * @throws JWTPayloadNotValid
      */
     public function guest()
     {
@@ -81,13 +88,23 @@ class JwtGuard implements Guard
      * @throws Exceptions\JWTAuthorizationHeaderMissing
      * @throws Exceptions\JWTCheckNotValid
      * @throws JWTHeaderNotValid
+     * @throws JWTNoSubjectClaim
      * @throws JWTPayloadNotValid
      */
     public function user()
     {
         $this->jwtValidator->validate();
+        $sub = $this->jwtParser->payload()->sub;
 
-        $user = $this->userProvider->retrieveById($this->jwtParser->payload()->sub);
+//        if(!$sub) {
+//            echo "there is no sub.";
+//        } else {
+//            echo "we have a sub";
+//        }
+
+        if(!$sub) throw new JWTNoSubjectClaim();
+//        else echo "here";
+        $user = $this->userProvider->retrieveById($sub);
 
         $this->setUser($user);
 
@@ -102,6 +119,7 @@ class JwtGuard implements Guard
      * @throws Exceptions\JWTAuthorizationHeaderMissing
      * @throws Exceptions\JWTCheckNotValid
      * @throws JWTHeaderNotValid
+     * @throws JWTNoSubjectClaim
      * @throws JWTPayloadNotValid
      */
     public function id()

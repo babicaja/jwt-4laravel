@@ -4,6 +4,7 @@ namespace Tests\JWT4L\Unit\Checks;
 
 use JWT4L\Checks\Expired;
 use JWT4L\Exceptions\JWTExpired;
+use JWT4L\Exceptions\JWTNoExpiredClaim;
 use JWT4L\Managers\Generator;
 use Tests\JWT4L\BaseTest;
 
@@ -56,5 +57,12 @@ class ExpiredTest extends BaseTest
         $this->moveTime($this->expiresIn - 1);
         /** @noinspection PhpVoidFunctionResultUsedInspection */
         $this->assertNull($this->check->validate($this->token));
+    }
+
+    /** @test **/
+    public function it_will_throw_a_proper_exception_if_the_exp_claim_is_not_set()
+    {
+        $this->expectException(JWTNoExpiredClaim::class);
+        $this->check->validate($this->generator->withPayload([], true)->create());
     }
 }

@@ -28,7 +28,7 @@ composer require babicaja/jwt-4laravel
 First register the service provider with the `artisan vendor:publish` command. This will ensure all the bindings are in place and it will copy the default configuration file to your app's config folder.
 
 ```bash
-php artisan vendor:publish --provider JWT4L\Providers\JWTServiceProvider
+php artisan vendor:publish // Choose JWT4L\Providers\JWTServiceProvider from the list
 ``` 
 
 Inspect the newly created `config/jwt.php` file. For now, you can leave it as it is (don't forget to change the `secret` key for production). Details about the configuration are covered in this [section](#configuration).
