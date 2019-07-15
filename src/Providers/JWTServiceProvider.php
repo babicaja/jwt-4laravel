@@ -34,7 +34,7 @@ class JWTServiceProvider extends ServiceProvider
 
         $this->app->bind(Signature::class, function () {
 
-            return new Signature(config('jwt.algorithm', 'sha256'), config('jwt.secret'));
+            return new Signature(config('jwt.algorithm', 'sha256'), config('jwt.secret', 'secret'));
         });
 
         $this->app->bind(Validator::class, function () {
