@@ -13,6 +13,7 @@
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Checks](#checks)
+- [Contributing](#contributing)
 
 ## Installation
 
@@ -83,7 +84,7 @@ There are a few ways to use the JWT for Laravel package:
 
 - Token Facade
 
-    Combines the functionality of the `\JWT4L\Token\Generator` and `\JWT4L\Token\Parser` Token Managers. This allows the user to create, validate and parse the JWT through one interface anywhere in the application.
+    Combines the functionality of the `\JWT4L\Token\Generator`, `JWT4L\Token\Validator` and `\JWT4L\Token\Parser` Token Managers. This allows the user to create, validate and parse the JWT through one interface anywhere in the application.
     
     > Example of Token Facade usage
     ```php
@@ -92,7 +93,12 @@ There are a few ways to use the JWT for Laravel package:
     ```  
 - Token Managers
 
-    There are two Token Managers. `\JWT4L\Token\Generator` is responsible for JWT creation and the `\JWT4L\Token\Parser` does the validation and parsing of JWTs. Both of the Token Managers are bound to Laravel's Service Container which allows you to inject them into constructors or method calls.
+    There are three Token Managers:
+    - `\JWT4L\Token\Generator` is responsible for JWT creation
+    - `JWT4L\Token\Validator` validates the provided JWT against the `Checks`
+    - `\JWT4L\Token\Parser` does the parsing of JWT
+    
+    All of the Token Managers are bound to Laravel's Service Container which allows you to inject them into constructors or method calls.
     
     > Example of Token Manager usage
     ```php
@@ -142,7 +148,12 @@ There are a few ways to use the JWT for Laravel package:
     });
     ```
     
-    You can find a detailed usage examples [here](EXAMPLES.md)
+    One important note regarding the `JWTGuard` implementation. The Guard will try to extract the user identifier from the `sub` (payload) claim of the provided token, so you should make sure that the logic responsible for token creation sets this claim as in the example bellow.
+    
+    > Example of setting a custom claim
+    ```php
+    Token::withPayload(['sub'=>'user-identifier'])->create();
+    ```  
 
 ## Checks
 
@@ -195,3 +206,26 @@ return [
     ]
 ];
 ```
+
+## Contributing
+
+Contributors:
+
+ - [babicaja](https://github.com/babicaja)
+
+You are more than welcome to contribute to this project. The main goal is to keep it simple because there are more than enough libraries with advance features. To take your work into consideration please create a Pull Request along the following guidelines:
+
+```
+# What's the purpose of this PR?
+(Insert the description of the purpose of this change here)
+# Impact Analysis
+(What will this possibly affect?)
+# Where should the tester start?
+(Hints tips or tricks regarding how to test this, things to watch out for, etc)
+# Any background context you want to provide?
+(e.g. was this driven from expirience )
+# What are the relevant tickets?
+(Is this related to a ticket/bug at the moment?)
+```
+
+Don't forget to write unit tests! All contributors will be listed.

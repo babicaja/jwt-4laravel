@@ -1,1 +1,0 @@
-# JWT for Laravel Usage Examples
